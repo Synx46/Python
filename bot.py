@@ -2,7 +2,7 @@ import discord
 import random
 import time
 import asyncio
-TOKEN = "OTExMjU5MTI2MzIyMDQ5MDU1.YZeyMg.vtHuZCCgn5Z4R8sUnk-N9q1Vssw"
+TOKEN = "#"
 
 client = discord.Client()
 
@@ -30,6 +30,10 @@ async def on_message(message):
             output += " "
         await message.channel.send(output)
         await message.delete()
+        
+    if message.content.startswith("/heysynx"):
+        await message.channel.send(random.choice(responses))
+                                  
 
 
 
