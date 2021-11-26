@@ -51,7 +51,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
 client = commands.Bot(command_prefix=';')
 
-token = "OTExNjIzMjc5MzEwMTcyMTgw.YZkFVg.P3fS5r01GBeeChEP_IjTvKm9UlE"
+token = "#"
 
 status = ['Pop Music', 'Botflix', 'Bot Theft Auto 6', 'Botney Spears']
 
