@@ -68,6 +68,29 @@ async def hello(ctx):
     responses = ['***grumble*** Why did you wake me up?', 'Top of the morning', 'I couldve done so much more', 'I was having a great day until now']
     await ctx.send(choice(responses))
 
+@client.command(name='play', help='This command plays music.')
+async def play(ctx, url):
+    if ctx.message.author.voice:
+        await ctx.send('You are not connected to a voice channel!')
+        return
+    else:
+        channel = ctx.message.author.voice.channel
+    await channel.connect()
+
+    server = ctx.message.guild
+    voice_channel = server.voice_client
+
+    async with ctx.typing():
+        player = await YTDLSource.from_url(url, loop=client.loop)
+        voice_channel.play(player, after=lambda e: print('player error: %s' %e) if e else None)
+
+    await ctx.send(f'**Now playing:** {player.title}')
+
+
+@client.command(name='stop', help='This command stops the song.')
+async def stop(ctx):
+    voice_client = ctx.message.guild.voice_client
+    await voice_client.disconnect()
 
 
 @tasks.loop(seconds=60)
@@ -75,7 +98,6 @@ async def change_status():
     await client.change_presence(activity=discord.Game(choice(status)))
 
 client.run(token)
-
 
 
 
