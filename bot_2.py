@@ -70,11 +70,13 @@ async def hello(ctx):
 
 @client.command(name='play', help='This command plays music.')
 async def play(ctx, url):
-    if ctx.message.author.voice:
-        await ctx.send('You are not connected to a voice channel!')
+    if not ctx.message.author.voice:
+        await ctx.send('You are not connected to a voice channel')
         return
+
     else:
         channel = ctx.message.author.voice.channel
+
     await channel.connect()
 
     server = ctx.message.guild
@@ -98,6 +100,5 @@ async def change_status():
     await client.change_presence(activity=discord.Game(choice(status)))
 
 client.run(token)
-
 
 
